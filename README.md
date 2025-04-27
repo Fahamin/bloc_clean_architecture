@@ -1,16 +1,44 @@
-# bloc_life
+# 🛍️ Flutter Clean Architecture Example (Bloc + Dio + Floor DB)
 
-A new Flutter project.
+This project demonstrates a full **Flutter Clean Architecture** setup using:
 
-## Getting Started
+- **Bloc / Cubit** → for State Management
+- **Dio** → for API calls
+- **Floor** → for local database (SQLite)
+- **GetIt** → for Dependency Injection
+- **Fakestore API** → Real-world data
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## 📦 Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Fetch products from API using Dio
+- Save data into Floor (SQLite) database
+- Auto fallback to local database if API fails
+- Clean folder structure following Clean Architecture principles
+- Easy to maintain, test and scale
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## 🛠️ Architecture Overview
+
+```plaintext
+🔵 UI Layer
+    - ProductPage
+    - BlocBuilder
+
+🔵 Presentation Layer
+    - ProductCubit (State Management)
+
+🔵 Domain Layer
+    - GetAllProducts (UseCase)
+    - ProductRepository (Interface)
+
+🔵 Data Layer
+    - ProductRepositoryImpl
+        - ProductRemoteDataSource (Dio)
+        - AppDatabase & ProductDao (Floor)
+
+🔵 External Dependencies
+    - Dio Client
+    - Floor Database
