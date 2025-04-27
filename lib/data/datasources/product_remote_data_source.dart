@@ -7,14 +7,13 @@ abstract class ProductRemoteDataSource {
 
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   final Dio dio;
-  static const String _baseUrl = 'https://fakestoreapi.com/';
 
   ProductRemoteDataSourceImpl(this.dio);
 
   @override
   Future<List<ProductModel>> getAllProducts() async {
     try {
-      final response = await dio.get('${_baseUrl}products');
+      final response = await dio.get('products');
 
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data;

@@ -14,24 +14,34 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   // External
-  sl.registerLazySingleton(() => Dio(BaseOptions(
-    contentType: "application/json",
-    connectTimeout: const Duration(seconds: 10),
-    receiveTimeout: const Duration(seconds: 10),
-  )));
+  sl.registerLazySingleton(
+    () => Dio(
+      BaseOptions(
+        baseUrl: 'https://fakestoreapi.com/',
+        contentType: "application/json",
+        connectTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 10),
+      ),
+    ),
+  );
 
   // Floor DB setup
   final dbPath = await getDatabasesPath();
-  final database = await $FloorAppDatabase
-      .databaseBuilder(join(dbPath, 'app_database.db'))
-      .build();
+  final database =
+      await $FloorAppDatabase
+          .databaseBuilder(join(dbPath, 'app_database.db'))
+          .build();
   sl.registerLazySingleton<AppDatabase>(() => database);
 
   // Data sources
-  sl.registerLazySingleton<ProductRemoteDataSource>(() => ProductRemoteDataSourceImpl(sl()));
+  sl.registerLazySingleton<ProductRemoteDataSource>(
+    () => ProductRemoteDataSourceImpl(sl()),
+  );
 
   // Repository
-  sl.registerLazySingleton<ProductRepository>(() => ProductRepositoryImpl(sl(), sl()));
+  sl.registerLazySingleton<ProductRepository>(
+    () => ProductRepositoryImpl(sl(), sl()),
+  );
 
   // Use cases
   sl.registerLazySingleton(() => GetAllProducts(sl()));
