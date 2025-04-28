@@ -3,6 +3,8 @@ import 'package:dio/dio.dart';
 
 abstract class ProductRemoteDataSource {
   Future<List<ProductModel>> getAllProducts();
+
+  Future<ProductModel> addProduct(ProductModel product);
 }
 
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
@@ -27,4 +29,14 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
       throw Exception('Unexpected error: ${e.toString()}');
     }
   }
+
+  @override
+  Future<ProductModel> addProduct(ProductModel product) async {
+    final response = await dio.post(
+      'products',
+      data: product.toJson(),
+    );
+    return ProductModel.fromJson(response.data);
+  }
+
 }

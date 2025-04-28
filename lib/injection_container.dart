@@ -1,3 +1,4 @@
+import 'package:bloc_life/domain/usecases/add_product.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
@@ -6,7 +7,7 @@ import 'package:sqflite/sqflite.dart';
 import 'data/datasources/product_remote_data_source.dart';
 import 'data/repositories/product_repository_impl.dart';
 import 'domain/repositories/product_repository.dart';
-import 'domain/usecases/get_all_products.dart';
+import 'domain/usecases/product_data.dart';
 import 'presentation/cubit/product_cubit.dart';
 import 'data/local/database/app_database.dart';
 
@@ -44,8 +45,9 @@ Future<void> init() async {
   );
 
   // Use cases
-  sl.registerLazySingleton(() => GetAllProducts(sl()));
+  sl.registerLazySingleton(() => ProductData(sl()));
+  sl.registerLazySingleton(() => AddProduct(sl()));
 
   // Cubit
-  sl.registerFactory(() => ProductCubit(getAllProducts: sl()));
+  sl.registerFactory(() => ProductCubit(getAllProducts: sl(), addProduct: sl()));
 }

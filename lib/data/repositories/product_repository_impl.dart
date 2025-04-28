@@ -1,3 +1,5 @@
+import 'package:bloc_life/data/models/product_model.dart';
+
 import '../../domain/entities/product.dart';
 import '../../domain/repositories/product_repository.dart';
 import '../datasources/product_remote_data_source.dart';
@@ -41,4 +43,13 @@ class ProductRepositoryImpl implements ProductRepository {
       )).toList();
     }
   }
+
+  @override
+  Future<ProductModel> addProducts(ProductModel product) async {
+    final remoteProducts = await remoteDataSource.addProduct(product);
+    return remoteProducts;
+
+  }
+
+
 }

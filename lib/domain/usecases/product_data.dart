@@ -1,12 +1,17 @@
+import 'package:bloc_life/data/models/product_model.dart';
+
 import '../entities/product.dart';
 import '../repositories/product_repository.dart';
 
-class GetAllProducts {
+class ProductData {
   final ProductRepository repository;
 
-  GetAllProducts(this.repository);
+  ProductData(this.repository);
 
   Future<List<Product>> call() async {
     return await repository.getAllProducts();
   }
+
+
+  
 }
